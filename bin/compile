@@ -1,8 +1,22 @@
 #!/bin/bash
+# usage: bin/compile <build-dir> <cache-dir> <env-dir>
+
 set -o nounset
 set -o errtrace
 set -o errexit
 set -o pipefail
 
 # install the heroku toolbelt
-wget -O- https://toolbelt.heroku.com/install.sh | sh
+HEROKU_CLIENT_URL="https://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client.tgz"
+rm -rf /usr/local/heroku
+mkdir -p /usr/local/heroku
+cd /usr/local/heroku
+
+if [ -z "$(which wget)" ]; then
+  curl -s $HEROKU_CLIENT_URL | tar xz
+else
+  wget -qO- $HEROKU_CLIENT_URL | tar xz
+fi
+
+mv heroku-client/* .
+rmdir heroku-client
