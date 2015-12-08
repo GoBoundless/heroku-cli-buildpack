@@ -6,11 +6,16 @@ set -o errtrace
 set -o errexit
 set -o pipefail
 
-# install the heroku toolbelt
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
 HEROKU_CLIENT_URL="https://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client.tgz"
-rm -rf /usr/local/heroku
-mkdir -p /usr/local/heroku
-cd /usr/local/heroku
+HEROKU_INSTALL_DIR=$BUILD_DIR/bin/heroku
+
+rm -rf $HEROKU_INSTALL_DIR
+mkdir -p $HEROKU_INSTALL_DIR
+cd $HEROKU_INSTALL_DIR
 
 if [ -z "$(which wget)" ]; then
   curl -s $HEROKU_CLIENT_URL | tar xz
