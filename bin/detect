@@ -1,0 +1,8 @@
+#!/bin/bash
+set -o nounset
+set -o errtrace
+set -o errexit
+set -o pipefail
+
+echo 'heroku-cli-buildpack'
+exit 0
